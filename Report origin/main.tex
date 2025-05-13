@@ -1,0 +1,1123 @@
+\documentclass[a4paper, 10pt]{article}
+\hyphenpenalty=8000
+\setlength{\parindent}{0pt}
+
+%Packages%
+\usepackage[a4paper, left=15mm, right=15mm, top=25mm, bottom=25mm]{geometry}
+\usepackage{graphicx}
+\usepackage{alltt}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{changepage}
+\usepackage{enumitem}
+\usepackage{tocloft}
+\usepackage{multirow} 
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{minted}
+\usepackage{geometry}
+\usepackage{rotating}
+\usepackage{lscape}
+\usepackage{siunitx} 
+\usepackage{threeparttable}
+\usepackage{adjustbox}
+\usepackage{tabularx}
+\usepackage{booktabs} 
+\usepackage{natbib}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+
+\captionsetup[figure]{skip=1.5pt}
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\renewcommand{\thefigure}{\Alph{figure}}
+
+% Setup dot leaders in TOC
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsubsecleader}{\cftdotfill{\cftdotsep}}
+
+% Customize section numbering format
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+\begin{document}
+\renewcommand{\thefootnote}{\arabic{footnote}}
+\begin{titlepage}
+    \centering
+    \vspace*{\fill}
+    {\Large\bfseries ECO-6004B}\\
+    {\Large\bfseries Alternative Investments \\ Summative 002\\\vspace{1cm} Do alternative investments provide portfolio insurance\\ during periods of stock market turmoil?\par}
+    \vspace{1.5cm}
+    {\Large 100379318\par}
+    \vspace{7cm}
+    {\Large Word count: 2196}
+    \vspace*{\fill}
+\end{titlepage}
+
+\tableofcontents 
+\clearpage
+
+%Introduction
+\section{Introduction}
+This paper examines whether commodities can act as portfolio insurance during periods of equity market turmoil. Unlike traditional assets, commodities derive value from physical utility and exhibit low correlation with stocks, which may offer diversification benefits during crises (\cite{gorton2006}). The primary factor that sets alternative investments apart from traditional ones is their low correlation to conventional investment forms (\cite{andelinovic2023}).\\
+
+To test this, we analyse historical performance across four portfolios (ranging from pure commodity (precious metals and agriculture) to hybrid and equity-only allocations) and comparing their performances during three major crises: the dot-com bubble (Jan 1995 – Oct 2002), the Global Financial Crisis (June 2007 – Jan 2009), and the COVID-19 pandemic (Feb 2020 - May 2023). We analyse these portfolios to assess their risk-adjusted returns and draw conclusions about whether commodities mitigate risk during turmoil periods with backed statistical evidence.
+\clearpage
+
+% Literature Review
+\section{Literature Review}
+This paper examines whether commodities can serve as effective portfolio insurance during periods of equity market turmoil. The foundational premise that commodities exhibit low correlation with traditional assets (\cite{gorton2006}; \cite{andelinovic2023}) suggests potential diversification benefits, but the empirical evidence reveals important nuances that shape our experimental design and expectations.\\
+
+The diversification potential of commodities is highlighted by \cite{boido2009}, who demonstrate that commodities provide portfolio benefits by responding primarily to macroeconomic volatility rather than equity market movements. Their analysis reveals a critical limitation: while commodities show portfolio insurance have higher impacts over longer horizons, their short-term volatility may diminish these benefits during abrupt crisis periods. This informs our methodology: stress-testing three crises (dot-com, GFC, COVID-19) as discrete scenarios. \cite{paulson2009} further confirm this crisis-dependent effectiveness, showing agricultural commodities provided meaningful risk reduction during the 2008 financial crisis, though their subsequent performance suffered from post-crisis supply shocks. These findings collectively suggest that commodities' insurance properties are period-specific and may vary across different types of market turmoil.\\
+
+Research consistently shows divergent behaviors across commodity subtypes during periods of market stress. \cite{demidova2007} establish that precious metals like gold serve as reliable macroeconomic hedges during financial crises \cite{hanif2023}, while agricultural commodities remain more exposed to supply-side disruptions. This differentiation informs our methodological approach of separating these asset classes and aligns with established characterizations of precious metals as traditional safe-haven assets \cite{hanif2023}. The documented resilience of metals during crisis periods suggests they may offer more consistent protection than agricultural commodities when equity markets experience turmoil. \\
+
+Using frameworks from previous research, our approach draws from established best practices in commodities research. Following  \cite{jensen2000}, we utilise the commodity's futures rather than spot prices due to their superior liquidity, availability, and ability to reflect actual investor exposure - particularly important when analysing crisis periods where accurate price discovery is crucial. For crisis identification, we adopt the VIX-based threshold (VIX > 30), supported by \cite{kownatzki2016} and \cite{whaley2009}, who demonstrate its effectiveness in capturing genuine market distress during events like the dot-com bubble and GFC. This combination of methodological choices ensures our analysis remains consistent with the most reliable approaches in the literature.\\
+
+However, the literature presents some contradictions that our study aims to address. While \cite{boido2009} emphasise the long-term holding of commodities for diversification benefits, \cite{papathanasiou2023} focus on their short-term hedging potential without integration into broader portfolios. Our simulation examines both pure commodity portfolios and hybrid allocations across multiple crisis periods, allowing us to assess both immediate hedging effects and longer-term insurance properties. This approach also enables us to test the low correlation hypothesis between commodities and the S\&P 500 during stress periods, a relationship that prior studies suggest but have not systematically examined across different crisis types.\\
+
+The existing literature collectively supports our core hypotheses while highlighting important boundary conditions. Commodities do appear to offer portfolio insurance properties, but these effects are moderated by the type of commodity, the nature of the crisis, and the time horizon examined. Precious metals emerge as particularly reliable hedges during financial crises, while agricultural commodities show more variable performance. Our study builds on these insights by providing a structured comparison across multiple crisis scenarios and portfolio constructions, offering new empirical evidence on when and how commodities can effectively insure investment portfolios against equity market turmoil. 
+\clearpage
+
+\section{Analysis}
+\subsection{Panel Overview}
+We start by viewing the returns of our assets to see if we can identify any that stand out. Below, we find the time-series plots for each of the assets' log/normalised monthly returns from 1990 to 2025 (Figure A). Looking at normalized returns, we find relatively consistent growth across all assets over time, but silver's post-2010 surge likely reflects investors seeking new safe-haven assets. Also, during the COVID pandemic, commodities performed significantly worse compared to the other crisis periods, highlighting their response to the supply-chain shocks that market experienced when transitioning out of the lockdown period (\cite{diaz2023}). This observation could highlight the caveats of utilising commodities as an insurance asset.
+
+\begin{figure}[H]
+    \centering
+    \caption{Return of Selected Commodity Assets and Traditional Equities}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/logreturns.png}
+        \caption{Log Returns}
+    \end{subfigure}
+    \quad
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/normreturns.png}
+        \caption{Normalised Returns}
+    \end{subfigure}
+    \vspace{5mm}
+\end{figure}
+\vspace{-4em}
+
+\subsection{Correlation between assets}
+To assess whether commodities can provide portfolio insurance, we should analyse the correlation between their returns and those of other assets (and indexes) for high-level evidence. A "good" asset has low/negative SPX correlation as it will perform well when equities decline. Looking at Figure B, we find that all six of our commodity asset have a correlation coefficient of $< 0.30$, thus there is strong evidence of low correlation with SPX, confirming that commodities are a viable candidate for our analysis. 
+
+\begin{figure}[H]
+    \centering
+    \caption{Correlation between Asset Returns}
+    \includegraphics[width=0.6\textwidth]
+    {images/heatmap.png}
+    \vspace{-0.9em}
+    \subcaption*{Find Correlation Matrix in Appendix A}
+\end{figure}
+
+\subsection{Portfolio Creation}
+For simplicity, simulated portfolios have been created using naïve diversification by equally weighting assets.
+\begin{enumerate}
+    \item Pure commodity portfolio containing exclusively precious metals [port\textbf{metal}]: gold, silver, platinum
+    \item Pure commodity portfolio containing exclusively agricultural assets [port\textbf{agri}]: corn, wheat, soybean
+    \item Stock portfolio containing exclusively "risk-averse" assets [port\textbf{stock}]: exxon, johnson \& johnson, png
+    \item Portfolio made of commodity and stocks [port\textbf{hybrid}]: gold, silver, corn, soybean, johnson \& johnson, png
+\end{enumerate}
+
+We can use these portfolios \footnote{Portfolios were formed with the assets' log returns} to help us identify whether commodities can mitigate risks during crises. We plot their returns to look for any notable variation.
+
+\begin{figure}[h]
+    \centering
+    \caption{Log Returns of Portfolios}
+    \includegraphics[width=0.5\linewidth]{images/portfoliolog.png}
+\end{figure}
+
+Figure C is consistent with previous results, showing notable peaks from our exclusively agricultural portfolio (portagri). The recurrence of underperformance during commodity volatility spikes (2004 and 2011) was driven by demand surges and geopolitical risks. This highlights a key caveat of naïvely diversification and shows that equal weights fail to account for disparities in asset risk. Therefore, in practice, using a weight optimising methods (such as mean-variance optimisation (\cite{celikyurt2007}) can be used to further mitigate risks.
+
+\subsection{Descriptive Statistics} 
+Descriptive Statistics of the portfolios can be found on Table 1. We find our equities portfolio gives us the highest return of $\approx 0.67\%$, with commodities giving us the lowest of $\approx 0.14\%$. These coefficients make sense as we gather descriptive statistics from the aggregated time period, which means returns from normal (non-turmoil periods) are included. Agricultural goods are known to be inelastic goods\footnote{Inelastic goods are goods that are consumed regardless of their price as they are typically necessity goods, which also means its level of consumption doesn't fluctuate significantly either. Thus, there is no incentive for a producer to innovate and find methods to profit maximise.} and have minimal fluctuation due to the nature of demand they have: there is usually no potential for growth or ability to scale profits with agricultural assets (\cite{crisostomo1990}) which means there is a lack of incentive for investment activity during normal times. On the other hand, equities provide the perfect opportunity for higher returns due to research \& development, liquidity and high growth potential.\\
+
+However, we begin to see how commodities can be very useful for mitigating risks when we look at the Sharpe Ratio and Jensen's (estimated) Beta. We find that portmetal and portagri have higher Sharpe Ratios compared to portstock, suggesting a relatively safer risk-adjusted return since the commodity portfolios exhibit lower marginal lossess for each unit of risk taken. It is further evident with the estimated beta values: we find that the commodity portfolios are less volatile compared to the equities, suggesting increased stability with the trade-off of lower returns. 
+
+\begin{table}[htbp]
+\centering
+\caption{Descriptive Statistics of the Portfolios}
+\begin{tabular}{l S[table-format=-1.5] S[table-format=-1.5] S[table-format=-1.5] S[table-format=-1.5]}
+\toprule
+{Portfolio } & {portmetal} & {portagri} & {portstock} & {porthybrid} \\
+\midrule
+Mean & 0.0034 & 0.00134 & 0.0067 & 0.0045 \\
+Standard Dev. & 0.497 & 0.642 & 0.0408 & 0.0368 \\
+Minimum & -0.216 & -0.238 & -0.142 & -0.158 \\
+Maximum & 0.162 & 0.178 & 0.135 & 0.106 \\
+Cumulative Return & 0.110 & 0.037 & 0.011 & 0.051 \\
+Sharpe Ratio & -0.426 & -0.371 & -0.445 & -0.518 \\
+Sortino Ratio & -0.685 & -0.550 & -0.575 & -0.740 \\
+Jensen's Alpha\textsuperscript{***} & -0.015 & -0.017 & -0.008 & -0.013 \\
+Jensen's Beta\textsuperscript{***} & 0.424 & 0.422 & 0.632 & 0.466 \\
+Maximum Drawdown (\%) & 55.533 & 55.532 & 29.541 & 31.992 \\
+\bottomrule
+\end{tabular}\\
+\vspace{0.5em}
+\small{{$^{***} = p<0.01$}. Find descriptive statistics formulae in Appendix B.}
+\end{table} 
+
+\subsection{Rolling Beta Analysis} 
+To further validate, we can utilise rolling windows to assess $\beta$ performance during periods of market turmoil. Ideally, we seek assets with lower beta values ($\beta\rightarrow0$), indicating minimal correlation with market movements, or negative betas ($\beta<0$), which suggests an inverse relationship to the market. Such assets can act as effective portfolio insurance, enhancing stability during downturns.\\
+
+Focussing on the beta values at the crisis periods (highlighted in grey) in Figure D, we find that our commodity-based portfolios have significantly lower $\beta$, which is particularly noticeable with the shorter investment horizon. In fact, they reached negative values, which shows strong evidence for portfolio insurance during turmoil periods.\\ 
+
+Additionally, even though rolling beta values tend to smooth out over longer investment periods, the data still clearly indicates that commodity assets exhibit lower exposure to systematic risk than equities. We should notice that the hybrid portfolio provides the optimal outcome as it mitigates the risk exposure compared to just having pure stocks, while also producing a better mean return and lower maximum drawdown compared to the pure commodities (refer to Table 1). To confirm our findings, we run regression models for statistical backing.
+\vspace{3em}
+
+\begin{figure}[H]
+    \centering
+    \caption{Rolling $\beta$s with various time horizons}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/srrolling.png}
+        \vspace{-1em}
+        \caption{3-Year Rolling $\beta$ (SR Investment)}
+    \end{subfigure}
+    \quad
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/mrrolling.png}
+        \vspace{-1em}
+        \caption{5-Year Rolling $\beta$ (MR Investment)}
+    \end{subfigure}
+    \vspace{5mm}
+\end{figure}
+\clearpage
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{images/lrrolling.png}
+    \vspace{-0.5em}
+    \caption*{(c) 10-Year Rolling $\beta$ (LR Investment)}
+\end{figure}
+
+\subsection{Regression Analysis} 
+The following equations show the regressions ran to determine whether commodities statistically provide insurance to a portfolio during crisis periods, where eq. (2) tests if commodities hedge market risk by including a crisis dummy interaction term. We decide to include inflation ($\pi$) as an endogenous variable as commodities are often considered a hedge against inflation because their prices tend to rise when inflation increases (\cite{degregorio2012}). In doing so, we capture its potential bidirectional relationship with commodity prices and financial market turmoil. This approach allows us to isolate the `portfolio insurance' effect of commodities and have more accurate interpretations. Thus, if commodities provide meaningful diversification benefits during crisis (independent of inflation), we would expect its coefficient to be statistically significant and negative in the regression. To ensure no multicollinearity exists in our model, we ran a Variance Inflation Factor (VIF) test after every regression and found that $\pi$ had a VIF = 1.04\%.\\
+
+\subsubsection*{Simple Regression Model}
+\begin{align}
+    Y_t-R_{f,t} = \alpha_P +\beta_P(R_{m,t}-R_{f,t})+ \pi_t +\epsilon_{P,t}
+\end{align}
+\subsubsection*{Crisis Dummy Regression Model}
+\begin{align}   
+    Y_t-R_{f,t} = \alpha_P +\beta_P(R_{m,t}-R_{f,t})+ \pi_t + \phi_t +(R_{m,t}\times\phi_t)+\epsilon_{P,t}
+\end{align}
+where: \begin{itemize}
+    \item $Y_t$ is the test portfolio 
+    \item $R_{f,t}$ is the risk-free rate at time $t$
+    \item $\alpha_P$ is the estimated alpha generated by test portfolio
+    \item $\pi_t$ is the inflation rate at time $t$
+    \item $\phi_t$ represents the dummy crisis (time period)
+    \item $R_{m,t}\times\phi_t$ is an interaction term between the market and crisis dummy
+    \item $\epsilon_{P,t}$ is the error term of the test portfolio
+\end{itemize}
+
+Looking at the results on Table 2, we find clear evidence of portfolio insurance during the dot-com crisis, as both commodity portfolios exhibit an inverse relationship with the market (e.g., in general, on average a 1\% drop in the SPX leads to a 0.335\% increase in precious metals' returns). Precious metals show strong statistical significance, while agricultural assets provide weaker evidence. Nevertheless, both portfolios suggest that commodities could have served as insurance during the dot-com crisis.\\
+
+While commodities provided strong portfolio insurance during the dot-com crisis—a demand-driven equity collapse confined to the tech sector — their performance was mixed or ineffective during the Global Financial Crisis (GFC) and COVID-19 crisis. This aligns with \cite{junttila2018}, who argue that crisis nature matters: the dot-com bubble stemmed from a tech-sector investment spike, whereas the GFC and COVID-19 involved supply shocks at various stages. However, most coefficients in these later crises were statistically insignificant, meaning we cannot confidently claim that equities or commodities did/did not provided portfolio insurance during those periods.\\
+
+Similarly, porthybrid shows a reduction in some of the extreme volatility, compared to the commodity portfolios (reflected in its lower $\hat{\beta}$), but still provides no evidence of hedging during crisis-specific periods. While the model demonstrates relatively strong statistical significance over the full time horizon, the estimated coefficient is positive—indicating a positive correlation with the market. This is undesirable for portfolio insurance, as we seek assets that move inversely to the market.
+
+\begin{table}[H]
+\centering
+\caption{Simple Regression Results}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabularx}{\textwidth}{l *{4}{>{\centering\arraybackslash}X}}
+\toprule
+ & \textbf{portmetal} & \textbf{portagri} & \textbf{portstock} & \textbf{porthybrid} \\
+\midrule
+
+\multicolumn{1}{l}{\textbf{Whole Time-Horizon}} \\
+Crisis $\times$ SPX ($\hat{\beta}$) & 0.400 & 0.531 & 0.046 & 0.513** \\
+ & (0.053) & (0.068) & (0.035) & (0.038) \\
+\midrule
+
+\multicolumn{1}{l}{\textbf{Dot-com Crisis (2000-2002)}} \\
+Crisis $\times$ SPX ($\hat{\beta}$) & -0.335*** & -0.279* & -0.249*** & -0.231** \\
+ & (0.123) & (0.161) & (0.082) & (0.089) \\
+\midrule
+
+\multicolumn{1}{l}{\textbf{GFC Crisis (2007-2009)}} \\
+Crisis $\times$ SPX ($\hat{\beta}$) & 0.004 & 0.172 & -0.158 & 0.051 \\
+ & (0.227) & (0.295) & (0.150) & (0.164) \\
+\midrule
+
+\multicolumn{1}{l}{\textbf{COVID Crisis (2020-2022)}} \\
+Crisis $\times$ SPX ($\hat{\beta}$) & 0.265* & -0.284 & 0.087 & -0.033 \\
+ & (0.141) & (0.183) & (0.094) & (0.103) \\
+\bottomrule
+\end{tabularx}
+\end{adjustbox}
+\begin{tablenotes}
+\small
+\item Notes: Standard errors in parentheses. Significance levels: * \(p<0.10\), ** \(p<0.05\), *** \(p<0.01\).
+\item Refer to Appendix D for full table.
+\end{tablenotes}
+\end{table}
+
+\subsubsection*{Vector Auto-Regressive (VAR) Model Analysis}
+% Mention that we include the VAR models for robustness and to identify how a shock to equity markets (turmoil) affects commodities, and whether commodities cushion the impact, i.e., behave like a hedge or safe haven. A VAR treats all variables as endogenous — a better match for interconnected market behavior during crises.
+Although our regression analysis has revealed insights into the static relationship between commodities and the market, a more dynamic framework, like the VAR model, can help us to identify how a shock to equity markets affects commodities, and whether commodities cushion the impact. The VAR framework treats all key variables to be endogenous, making it better match market behaviour during a crisis, and allowing us to see explicitly how our portfolios performed during our observed periods (instead of showing the estimated $\beta$, we see an estimated expected return). Below show the regression equations and results.\\
+
+\textbf{A: Vector Form}
+\begin{align}
+    \mathbf{Y_t}=\mathbf{\alpha}+\sum_{i=1}^4\mathbf{\Phi_i Y_{t-i}}+\mathbf{\Gamma X_t}+\mathbf{\epsilon_t}
+\end{align}
+\textbf{B: Matrix Form}
+\begin{equation}
+Y = \alpha + \sum_{k=1}^{4} \Phi_k Y_{t-k} + \Gamma X_t + \epsilon_t
+\end{equation}
+\begin{center}
+    \textit{Full Equations and Optimal Lag Choices found in Appendix E}
+\end{center}
+
+Looking at Table 3, we find that there is significance when looking at the whole time horizon, where all portfolios are expected on average to have negative returns. Nevertheless, commodity and hybrid portfolios mitigate the impact of turmoil periods on portfolios as they experience less of a loss. To add, the hybrid portfolio can be considered to be the best performing as it experienced the lowest loss compared to the others, thus suggesting evidence for providing portfolio insurance.
+
+Although, similar to prior, due to the weak statistical evidence presented at specific crisis points, we cannot conclude any clear relationships between portfolio returns during the crisis. Hence, we have no conclusive evidence that commodities acted as a support during these crises. 
+
+
+\begin{table}[H]
+\centering
+\caption{Crisis Period Coefficients from VAR Models}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabularx}{\textwidth}{l *{4}{>{\centering\arraybackslash}X}}
+\toprule
+ & \textbf{portmetal} & \textbf{portagri} & \textbf{portstock} & \textbf{porthybrid} \\
+\midrule
+
+\multicolumn{1}{l}{\textbf{Whole Time-Horizon}} \\
+Crisis [E(R)] & -0.050*** & -0.053*** & -0.065*** & -0.049*** \\
+ & (0.013) & (0.017) & (0.010) & (0.009) \\
+\midrule
+
+\multicolumn{1}{l}{\textbf{Dot-com Crisis (2000-2002)}} \\
+Crisis [E(R)] & -0.007 & -0.002 & 0.005 & -0.001 \\
+ & (0.007) & (0.009) & (0.006) & (0.005) \\
+\midrule
+
+\multicolumn{1}{l}{\textbf{GFC Crisis (2007-2009)}} \\
+Crisis [E(R)] & 0.003 & -0.002 & -0.015 & -0.008 \\
+ & (0.013) & (0.016) & (0.010) & (0.009) \\
+\midrule
+
+\multicolumn{1}{l}{\textbf{COVID Crisis (2020-2022)}} \\
+Crisis [E(R)] & -0.002 & 0.011 & 0.006 & 0.005 \\
+ & (0.009) & (0.012) & (0.008) & (0.007) \\
+\bottomrule
+\end{tabularx}
+\end{adjustbox}
+\begin{tablenotes}
+\small
+\item Notes: Standard errors in parentheses. Significance levels: * \(p<0.10\), ** \(p<0.05\), *** \(p<0.01\).\\
+\item Refer to Appendix F for full table and stability checks.
+\end{tablenotes}
+\end{table}
+
+\section{Conclusion}
+This paper explored whether commodities can serve as portfolio insurance during financial crises. Using a framework from \cite{demidova2007}, we find that commodities offer some hedging benefits across crises, though their effectiveness is crisis-dependent. While they perform well in sector-specific downturns (e.g., tech collapses), they provide little statistical evidence for hedging during supply-side shocks (\cite{paulson2009}). Hybrid portfolios (e.g., metals and equities) may balance risk and returns, thus portfolio insurance, particularly for long-term investors (\cite{boido2009}).\\
+
+Therefore, in practice, investors should consider the nature of potential crises and commodity subtypes when adding alternatives to portfolios. Our results suggest that while metals offer reliable hedging in financial downturns, their effectiveness varies sharply during supply disruptions.\\
+
+Limitations include a lack of focus on factors like optimising weighting methods, traditional equity selection - depending on what stocks are selected, we may find that commodities become better/worse at providing portfolio insurance. Geographical location is another limitation: focussing on how commodities can provide strong insurance to assets within emerging markets (\cite{deboyrie2018}). 
+
+
+
+% This paper explored the characteristics of the commodity asset class and whether it can act as portfolio insurance during financial turmoil. By creating portfolios using a framework from Demidova-Menzel et al. (2007), we found that there is some degree of evidence which suggests that commodities act well for portfolio insurance when we look at all three crises.\\
+
+% Our analysis reveals that while commodities provide some insurance, this effect is crisis-dependent, with no statistical evidence supporting hedging during specific crises—particularly those involving supply-side shocks that disrupt agricultural markets (Paulson et al., 2009). Commodities perform better in sector-specific downturns (e.g., tech collapses) than in broad market crashes, making them more suitable for long-term portfolios (Boido et al., 2009). For investors, hybrid portfolios (e.g., metals and equities) may offer a balance between risk mitigation and returns, though long-term holdings are optimal.\\
+
+% Limitations include our acknowledged focus on naive diversification and exclusion of geographic or equity-specific factors. Future research could test optimized weighting methods (Çelikyurt et al., 2007) or compare commodities to other alternatives (e.g., private equity). Nonetheless, our results underscore commodities’ conditional value in turbulent markets.\\
+
+% Moreover, the scope of this paper did not focus on factors such as traditional equity selection - depending on what stocks are selected, we may find that commodities become better/worse at providing portfolio insurance. Geographical location is another factor: focussing on how commodities can provide strong insurance to assets within emerging markets (de Boyrie et al, 2018). Another area to explore is how other alternative investments (such as private equity, hedge funds, or luxuries) perform during these turmoil periods to determine they can further mitigate risk.
+
+% -- Conclusion Plan -- %
+% Provide summary of the steps we did to get to the portfolio selection and regression, talking about how the descriptive statistics provided a solid foundation to understanding the relationship between the alternative asets and traditional equities. 
+
+% Discuss how in general, there might be some evidence suggesting that commodities provide portfolio insurance. However, when looking at our time-specific crises, we find that there is no evidence for commodities providing insurance to a porfolio. Even when looking at the whole time horizon, although we find that the hyrbrid and commodity portfolios don't perform as badly as stocks, the simple regression model still believes they bare systematic risk. However, this could be due to the crises that we analysed: as said before, the GFC and COVID both were followed by supply-side shocks, thus obviously impacting the commodities market. 
+
+% There is also the dependency of what stocks are chosen, our stock selection was very conservative and may not reflect an investor's asset selection in reality.
+
+% Could commodity insurace depend on geogprahical location of assets, developing countries may see inverse relationships to traditional equities, whereas the same may not be the same for developed coutnries. 
+
+% Commodities can help diversify a portfolio, depending on the type of investor (will help to mitigate risk of a long-term investor).
+
+% Include that other alternative investments could be considered for portfolio insurance for shorter-term portfolios, however, commodities do present a strong candidate for diversification for longer-term portfolios. 
+
+% End conclusion by referring to the hypotheses and stating which ones our results found to be true and false.
+
+
+\clearpage
+\section{Bibliography}
+\renewcommand{\refname}{}
+\begin{thebibliography}{99}
+
+\bibitem[Andelinovic and Skunca(2023)]{andelinovic2023}
+Anđelinović, M. and Skunca, F. (2023) `Optimizing insurers' investment portfolios: incorporating alternative investments', \textit{Zbornik radova Ekonomskog fakulteta u Rijeci}, 41(2), pp. 361--389. doi: \url{https://doi.org/10.18045/zbefri.2023.2.361}.
+
+\bibitem[Boido and Fasano(2009)]{boido2009}
+Boido, C. and Fasano, A. (2009) 'Alternative Assets: A Comparison between Commodities and Traditional Asset Classes,' \textit{SSRN Electronic Journal [Preprint]}. \url{https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1394783.}
+
+\bibitem[Çelikyurt and Özekici(2007)]{celikyurt2007}
+Çelikyurt, U. and Özekici, S. (2007) `Multiperiod portfolio optimization models in stochastic markets using the mean--variance approach', \textit{European Journal of Operational Research}, 179(1), pp. 186--202. doi: \url{https://doi.org/10.1016/j.ejor.2005.02.079}.
+
+\bibitem[Crisostomo and Featherstone(1990)]{crisostomo1990}
+Crisostomo, M. F. and Featherstone, A. M. (1990) `A portfolio analysis of returns to farm equity and assets', \textit{Applied Economic Perspectives and Policy}, 12(1), pp. 9--21. doi: \url{https://doi.org/10.1093/aepp/12.1.9}.
+
+\bibitem[De Boyrie and Pavlova(2018)]{deboyrie2018}
+De Boyrie, M. E. and Pavlova, I. (2018) `Equities and commodities comovements: Evidence from emerging markets', \textit{Global Economy Journal}, 18(3), p. 20170075. doi: \url{https://doi.org/10.1515/gej-2017-0075}.
+
+\bibitem[De Gregorio(2012)]{degregorio2012}
+De Gregorio, J. (2012) `Commodity prices, monetary policy, and inflation', \textit{IMF Economic Review}, 60(4), pp. 600--633. doi: \url{https://doi.org/10.1057/imfer.2012.15}.
+
+\bibitem[Demidova-Menzel and Heidorn(2007)]{demidova2007}
+Demidova-Menzel, N. and Heidorn, T. (2007) \textit{Commodities in asset management}. Available at: \url{https://www.econstor.eu/handle/10419/27848}.
+
+\bibitem[Díaz et al.(2023)]{diaz2023} 
+Díaz, E., Juncal Cuñado and Pérez, F. (2023) `Commodity price shocks, supply chain disruptions and U.S. inflation', \textit{Finance Research Letters}, 58, pp. 104495. doi: \url{https://doi.org/10.1016/j.frl.2023.104495}.
+
+\bibitem[Gorton and Rouwenhorst(2006)]{gorton2006}
+Gorton, G. and Rouwenhorst, K. G. (2006) `Facts and fantasies about commodity futures', \textit{Financial Analysts Journal}, 62(2), pp. 47--68. Available at: \url{https://www.jstor.org/stable/4480744}.
+
+\bibitem[Hanif et al.(2023)]{hanif2023}
+Hanif, W. et al. (2023) `Dependence and risk management of portfolios of metals and agricultural commodity futures', \textit{Resources Policy}, 82, p. 103567. doi: \url{https://doi.org/10.1016/j.resourpol.2023.103567}.
+
+\bibitem[Jensen et al.(2000)]{jensen2000}
+Jensen, G. R., Johnson, R. R. and Mercer, J. M. (2000) `Efficient use of commodity futures in diversified portfolios', \textit{Journal of Futures Markets}, 20(5), pp. 489--506. doi: \url{https://doi.org/10.1002/(SICI)1096-9934(200005)20:5<489::AID-FUT5>3.0.CO;2-A}.
+
+\bibitem[Junttila et al.(2018)]{junttila2018}
+Junttila, J., Pesonen, J. and Raatikainen, J. (2018) `Commodity market based hedging against stock market risk in times of financial crisis: The case of crude oil and gold', \textit{Journal of International Financial Markets, Institutions and Money}, 56, pp. 255--280. doi: \url{https://doi.org/10.1016/j.intfin.2018.01.002}.
+
+\bibitem[Kownatzki(2016)]{kownatzki2016}
+Kownatzki, C. (2016) \textit{How good is the VIX as a predictor of market risk?} Available at: \url{http://www.na-businesspress.com/JAF/KownatzkiC_Web16_6_.pdf}.
+
+\bibitem[Mandelbrot(1963)]{mandelbrot1963}
+Mandelbrot, B. (1963) `New methods in statistical economics', \textit{Journal of Political Economy}, 71(5), pp. 421--440. doi: \url{https://doi.org/10.1086/258792}.
+
+\bibitem[Papathanasiou et al.(2023)]{papathanasiou2023}
+Papathanasiou, S. et al. (2023) `The dynamic connectedness between private equities and other high-demand financial assets: A portfolio hedging strategy during COVID-19', \textit{Australian Journal of Management}. doi: \url{https://doi.org/10.1177/03128962231184658}.
+
+\bibitem[Paulson and Sherrick(2009)]{paulson2009}
+Paulson, N. D. and Sherrick, B. J. (2009) `Impacts of the financial crisis on risk capacity and exposure in agriculture', \textit{American Journal of Agricultural Economics}, 91(5), pp. 1414--1421. doi: \url{https://doi.org/10.2307/20616318}.
+
+\bibitem[Whaley(2009)]{whaley2009}
+Whaley, R. (2009) `Understanding the VIX', \textit{The Journal of Portfolio Management}, 35(3), pp. 98--105. doi: \url{https://doi.org/10.3905/JPM.2009.35.3.098}.
+
+\end{thebibliography}
+\clearpage
+
+\section{Data Sources}
+The following links show where price data was taken from.
+
+\begin{enumerate}
+    \item Gold (GCM5): \url{https://www.investing.com/commodities/gold}
+    \item Silver (SIN5): \url{https://www.investing.com/commodities/silver}
+    \item Platinum (PLN5): \url{https://www.investing.com/commodities/platinum}
+    \item Corn (ZCN5): \url{https://www.investing.com/commodities/us-corn}
+    \item Soybean (ZSN5): \url{https://www.investing.com/commodities/us-soybeans}
+    \item Wheat (ZWN5): \url{https://www.investing.com/commodities/us-wheat}
+    \item Exxon (XOM): \url{https://www.investing.com/equities/exxon-mobil}
+    \item Johnson \& Johnson (JNJ): \url{https://www.investing.com/equities/johnson-johnson}
+    \item Procter \& Gamble (PG): \url{https://www.investing.com/equities/procter-gamble}
+    \item S\&P 500 (US500): \url{https://www.investing.com/indices/us-spx-500}
+    \item CBOE Volatility Index (VIX): \url{https://www.investing.com/indices/volatility-s-p-500}
+    \item 3-Month US Treasury (risk-free rate): \url{https://fred.stlouisfed.org/series/DGS3MO}
+    \item Consumer Price Index (inflation rate): \url{https://fred.stlouisfed.org/series/CPIAUCSL}
+\end{enumerate}
+\clearpage
+
+\section{Appendix}
+\subsection{Appendix A - Correlation Matrix}
+\vspace{8em}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.45\linewidth]
+    {images/correlation_matrix.png}
+    \label{fig:enter-label}
+\end{figure}
+\clearpage
+
+\subsection{Appendix B - Descriptive Statistics Formulae}
+\textbf{Logarithmic Returns}
+\begin{align*}
+    \text{Return} = ln(\frac{P_t}{P_{t-1}})
+\end{align*}
+where \begin{itemize}
+    \item $P_t$ is the price of an asset at time $t$
+    \item $P_{t-1}$ is the price of an asset at time $t-1$ (previous period)
+\end{itemize}
+
+\vspace{2em}
+\textbf{Normalised Returns}
+\begin{align*}
+    \text{Return} = \frac{P_t}{P_x}\times100
+\end{align*}
+where: \begin{itemize}
+    \item $P_t$ is the price of an asset at time $t$
+    \item $P_x$ is the first non-zero recorded price of an asset
+\end{itemize}
+
+\vspace{2em}
+\textbf{Cumulative Returns}
+\begin{align*}
+    exp(\sum_{i=1}^N ln(r_P))-1 
+\end{align*} 
+where: \begin{itemize}
+    \item $exp$ is the exponential component
+    \item $\sum_{i=1}^Nln(r_P)$ is the sum of the monthly log-transformed returns of each portfolio
+\end{itemize}
+
+\vspace{2em}
+\textbf{Volatility ($\sigma$)}
+\begin{align*}
+    \sigma_p = \sqrt{\frac{1}{T}\sum_{t=1}^T(r_{p,t} -\mu)^2} 
+\end{align*}
+where: \begin{itemize}
+    \item $T$ is the number of recorded time periods
+    \item $\sigma$ is the volatility
+    \item $N$ is the number of recorded months 
+    \item $r_p$ is the monthly log-transformed returns 
+    \item $\mu_p$ is the average return of the portfolio
+\end{itemize}
+\clearpage
+
+\textbf{Sharpe Ratio}
+\begin{align*}
+     \text{Sharpe Ratio} = \frac{(R_P-R_f)}{\sigma_P}
+\end{align*}
+where: \begin{itemize}
+    \item $R_P$ is the return of the portfolio
+    \item $R_f$ is the risk-free rate
+    \item $(R_P-R_f)$ is the market premium 
+    \item $\sigma_P$ is the portfolio volatility (standard deviation)
+\end{itemize}
+
+\vspace{2em}
+\textbf{Sortino Ratio}
+\begin{align*}
+     \text{Sharpe Ratio} = \frac{(R_P-R_f)}{\sigma_{d}}
+\end{align*}
+where: \begin{itemize}
+    \item $R_P$ is the return of the portfolio
+    \item $R_f$ is the risk-free rate
+    \item $(R_P-R_f)$ is the market premium 
+    \item $\sigma_d$ is the downside volatility (standard deviation)
+\end{itemize}
+
+\vspace{2em}
+\textbf{Jensen's Alpha ($\alpha$)}
+\begin{align*}
+R_{P,t}-R_{f,t}=\alpha_{P}+\beta_P(R_{m,t}-R_{f,t})+\epsilon_{{P,t}}
+\end{align*}
+where: \begin{itemize}
+    \item $\alpha_P$ is the estimated (Jensen's) Alpha of the portfolio
+    \item $\beta_P$ is the estimated Beta of the portfolio
+    \item $R_{P,t}$ is the return of the portfolio
+    \item $R_{f,t}$ is the risk-free rate
+    \item $R_{m,t}$ is the market return 
+    \item $\epsilon_{P,t}$ is the error term
+\end{itemize}
+
+\vspace{2em}
+\textbf{Drawdown Values}
+\begin{align*}
+    \text{Drawdown}_t=\frac{R_{P,t}-\text{min}(R_{P,t},R_{P,t-1{,\dots,R_{{P,0}}}})}{R_{P,t}}
+\end{align*}
+\textbf{Maximum Drawdown}
+\begin{align*}
+    \text{Max Drawdown \%} = \frac{PV-TV}{PV}\times 100
+\end{align*}
+where: \begin{itemize}
+    \item $R_{P,t}$ is the return of the portfolio at each period
+    \item $\text{min}(R_{P,t},R_{P,t-1{,\dots,R_{{P,0}}})}$ is the lowest drawdown at each period (and is updated after every period)
+    \item $TV$ is the trough (lowest) value
+    \item $PV$ is the peak (highest) value
+\end{itemize}
+\clearpage
+
+\subsection{Appendix C - Maximum Drawdown Plots}
+\begin{figure}[H] 
+    \centering
+    \caption*{Maximum Drawdown analysis of portfolios against S\&P 500}
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/portmetal_drawdown.png}
+        \caption{Precious Metals Portfolio}
+        \vspace{-0.3em} 
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/portagri_drawdown.png}
+        \caption{Agriculture Portfolio}
+        \vspace{-0.3em}
+    \end{subfigure}
+    \vspace{0.3em} 
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/portstock_drawdown.png}
+        \caption{Stocks Portfolio}
+        \vspace{-0.3em} 
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/porthybrid_drawdown.png}
+        \caption{Hybrid Portfolio}
+        \vspace{-0.3em} 
+    \end{subfigure}
+    \vspace{2em} 
+    \begin{subfigure}{\textwidth}
+        \centering
+        \caption*{Maximum Drawdown analysis of Portfolios}
+        \vspace{-0.5em} 
+        \includegraphics[width=0.6\linewidth]{images/portfolio_drawdown.png}
+    \end{subfigure}
+\end{figure}
+\clearpage
+
+\subsection{Appendix D - Linear Regression Results}
+
+\begin{table}[H]
+\centering
+\caption*{Regression Results by Crisis Period}
+\label{tab:consolidated}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabularx}{\textwidth}{l *{4}{>{\centering\arraybackslash}X}}
+\toprule
+& \textbf{portmetal} & \textbf{portagri} & \textbf{portstock} & \textbf{porthybrid} \\
+\midrule
+
+\multicolumn{1}{l}{\textbf{Simple Model}} \\
+SPX ($\hat{\beta}$) & 0.388*** & 0.399*** & 0.630*** & 0.444*** \\
+& (0.053) & (0.068) & (0.035) & (0.038) \\
+Inflation ($\pi$) & 0.000159*** & 0.000103 & 0.000006 & 0.000096** \\
+& (0.000) & (0.000) & (0.000) & (0.000) \\
+Constant ($\alpha$) & -0.049*** & -0.039** & -0.009 & -0.033*** \\
+& (0.011) & (0.015) & (0.007) & (0.008) \\
+R$^2$ & 0.157 & 0.092 & 0.452 & 0.281 \\
+Adj. R$^2$ & 0.153 & 0.088 & 0.449 & 0.277 \\
+\midrule
+
+\multicolumn{1}{l}{\textbf{Dot-com Crisis (2000-2002)}} \\
+SPX ($\hat{\beta}$) & 0.455*** & 0.453*** & 0.688*** & 0.489*** \\
+& (0.060) & (0.079) & (0.040) & (0.044) \\
+Inflation ($\pi$) & 0.000092 & 0.000042 & -0.000015 & 0.000045 \\
+& (0.000) & (0.000) & (0.000) & (0.000) \\
+Crisis & -0.026*** & -0.023** & -0.011** & -0.019*** \\
+& (0.008) & (0.010) & (0.005) & (0.006) \\
+Crisis $\times$ SPX & -0.335*** & -0.279* & -0.249*** & -0.231** \\
+& (0.123) & (0.161) & (0.082) & (0.089) \\
+Constant ($\alpha$) & -0.031** & -0.022 & -0.003 & -0.019** \\
+& (0.013) & (0.017) & (0.009) & (0.009) \\
+R$^2$ & 0.181 & 0.104 & 0.464 & 0.301 \\
+Adj. R$^2$ & 0.173 & 0.095 & 0.459 & 0.295 \\
+\midrule
+
+\multicolumn{1}{l}{\textbf{GFC Crisis (2007-2009)}} \\
+SPX ($\hat{\beta}$) & 0.401*** & 0.406*** & 0.651*** & 0.454*** \\
+& (0.055) & (0.071) & (0.036) & (0.040) \\
+Inflation ($\pi$) & 0.000155*** & 0.000100 & 0.000000 & 0.000092** \\
+& (0.000) & (0.000) & (0.000) & (0.000) \\
+Crisis & 0.017 & 0.031 & 0.006 & 0.020* \\
+& (0.016) & (0.021) & (0.011) & (0.012) \\
+Crisis $\times$ SPX & 0.004 & 0.172 & -0.158 & 0.051 \\
+& (0.227) & (0.295) & (0.150) & (0.164) \\
+Constant ($\alpha$) & -0.048*** & -0.039** & -0.008 & -0.033*** \\
+& (0.011) & (0.015) & (0.007) & (0.008) \\
+R$^2$ & 0.161 & 0.098 & 0.458 & 0.288 \\
+Adj. R$^2$ & 0.153 & 0.089 & 0.452 & 0.281 \\
+\midrule
+
+\multicolumn{1}{l}{\textbf{COVID Crisis (2020-2022)}} \\
+SPX ($\hat{\beta}$) & 0.342*** & 0.449*** & 0.616*** & 0.450*** \\
+& (0.058) & (0.075) & (0.039) & (0.042) \\
+Inflation ($\pi$) & 0.000182*** & 0.000058 & -0.000004 & 0.000084** \\
+& (0.000) & (0.000) & (0.000) & (0.000) \\
+Crisis & -0.001 & 0.009 & 0.006 & 0.004 \\
+& (0.009) & (0.012) & (0.006) & (0.007) \\
+Crisis $\times$ SPX & 0.265* & -0.284 & 0.087 & -0.033 \\
+& (0.141) & (0.183) & (0.094) & (0.103) \\
+Constant ($\alpha$) & -0.054*** & -0.029* & -0.008 & -0.031*** \\
+& (0.012) & (0.016) & (0.008) & (0.009) \\
+R$^2$ & 0.164 & 0.099 & 0.454 & 0.282 \\
+Adj. R$^2$ & 0.156 & 0.091 & 0.449 & 0.275 \\
+\midrule
+
+\multicolumn{5}{l}{Notes: Standard errors in parentheses. Significance levels: * \(p<0.10\), ** \(p<0.05\), *** \(p<0.01\).} \\
+\multicolumn{5}{l}{All models include \(N = 420\) observations. Interaction terms use the Crisis $\times$ spx\_prem.} \\
+\bottomrule
+\end{tabularx}
+\end{adjustbox}
+\end{table}
+\clearpage
+
+\subsection{Appendix E - Full Vector Auto-Regressive Equations}
+%VECTOR%
+\subsubsection*{A: Vector Form}
+\begin{align}
+    \mathbf{Y_t}=\mathbf{\alpha}+\sum_{i=1}^4\mathbf{\Phi_i Y_{t-i}}+\mathbf{\Gamma X_t}+\mathbf{\epsilon_t}
+\end{align}
+where:
+\begin{itemize}
+    \item $\mathbf{Y_t} = \begin{pmatrix} \text{portfolio}_t \\ 
+    \text{spx}_t \\ \text{interest rate}_t \end{pmatrix}$ is the vector of the dependent variables
+    \item $\boldsymbol{\alpha} = \begin{pmatrix} \alpha_1 \\ \alpha_2 \\ \alpha_3\end{pmatrix}$ are the estimated alphas
+    
+    \item $\boldsymbol{\Phi_i} = \begin{pmatrix} \phi_{11}^{(k)} & \phi_{12}^{(k)} \\ \phi_{21}^{(k)} & \phi_{22}^{(k)} \\ \phi_{31}^{(k)} & \phi_{32}^{(k)} \end{pmatrix}$ are coefficient matrices with the $k$-th (k $\in$ (1,4)) lag in parentheses.
+          
+    \item $\mathbf{X}_t = \begin{pmatrix} \text{$\pi$}_t \\ \text{crisis}_t \end{pmatrix}$ is the vector of exogenous variables
+    
+    \item $\mathbf{\Gamma} = \begin{pmatrix} \beta_{11} & \beta_{12} \\ \beta_{21} & \beta_{22} \\ \beta_{31} & \beta_{32} \end{pmatrix}$ is the coefficient matrix for exogenous variables
+    
+    \item $\boldsymbol{\epsilon}_t = \begin{pmatrix} \epsilon_{1t} \\ \epsilon_{2t} \\ \epsilon_{3t} \end{pmatrix}$ is the vector of error terms
+\end{itemize}
+
+%MATRIX%
+\subsubsection*{B: Matrix Form}
+\begin{equation}
+Y_t = \alpha + \sum_{k=1}^{4} \Phi_k Y_{t-k} + \Gamma X_t + \epsilon_t
+\end{equation}
+
+\begin{equation}
+\begin{bmatrix}
+\text{portfolio}_t \\
+\text{spx}_t \\
+\text{interest rate}_t \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+\alpha_1 \\
+\alpha_2 \\
+\alpha_3 \\
+\end{bmatrix}
++
+\sum_{k=1}^{4}
+\begin{bmatrix}
+\phi_{11}^{(k)} & \phi_{12}^{(k)} & \phi_{13}^{(k)} \\
+\phi_{21}^{(k)} & \phi_{22}^{(k)} & \phi_{23}^{(k)} \\
+\phi_{31}^{(k)} & \phi_{32}^{(k)} & \phi_{33}^{(k)} \\
+\end{bmatrix}
+\begin{bmatrix}
+\text{portfolio}_{t-k} \\
+\text{spx}_{t-k} \\
+\text{interest rate}_{t-k} \\
+\end{bmatrix}
++
+\begin{bmatrix}
+\beta_{11} & \beta_{12} \\
+\beta_{21} & \beta_{22} \\
+\beta_{31} & \beta_{32} \\
+\end{bmatrix}
+\begin{bmatrix}
+\pi_t \\
+\text{dot\_crisis}_t
+\end{bmatrix}
++
+\begin{bmatrix}
+\epsilon_{1t} \\
+\epsilon_{2t} \\
+\epsilon_{3t} \\
+\end{bmatrix}
+\end{equation}
+
+
+where:
+\begin{itemize}
+    \item $Y_t = \begin{bmatrix} \text{portfolio}_t \\ \text{spx}_t \\ \text{interest rate}_t \end{bmatrix}$ is the vector of endogenous variables
+    \item $\alpha$ is the vector of intercepts
+    \item $\Phi_k$ are coefficient matrices for the $k$-th (k $\in$ (1,4)) lag
+    \item $X_t = \begin{bmatrix} \text{$\pi$}_t \\ \text{dot\_crisis}_t \end{bmatrix}$ is the vector of exogenous variables
+    \item $\Gamma$ is the coefficient matrix for exogenous variables
+    \item $\epsilon_t$ is the vector of error terms
+\end{itemize}
+\clearpage
+
+\textbf{Appendix E Continued - VAR Model Implementation Code}
+\vspace{-1.5em}
+\begin{minted}
+[frame=lines, framesep=2mm,
+baselinestretch=1.2,
+fontsize=\footnotesize, linenos]
+{stata}
+* ADDITIONAL EVIDENCE - VECTOR AUTOREGRESSIVE (VAR) MODEL 
+/* Endogeneous variables: spx with (portmetal, portagri, portstock, porthybrid) 
+[justify why we don't include the premium here... for clarity! Previously, it was intended to follow 
+a more traditional CAPM style; whereas here we want to clarify our insight, so we aim for simplicity]
+Exogenous variables (for completeness): Inflation ($\pi$), rf/100 ($r_f$), crisis dummies*/
+
+* Generate a decimal value for interest rates
+gen $r_f$ = rf/100
+
+* Testing for stationarity (using the Augmented Dickey Fuller (ADF)-test) 
+* Looking for stationarity visually 
+local vars spx portmetal portagri portstock porthybrid
+foreach var of local vars {
+    tsline `var', name(`var', replace) title(`var' Returns)
+}
+
+* Identifying stationarity statistically
+local vars spx portmetal portagri portstock porthybrid
+foreach var of local vars{
+	dfuller `var', lags(0)
+} 
+* We find that all our stationary at the 99% confidence level, thus we can regress them in their levels format
+
+* Find optimal lag lengths 
+local vars spx portmetal portagri portstock porthybrid
+foreach var of local vars {
+	varsoc `var'
+}
+
+/*The following is a short summary of the optimal lags found from our criterion
+spx_prem: AIC = HQIC = BIC = 0
+portmetal: AIC = 2, HQIC = BIC = 0
+portagri: AIC = HQIC = BIC = 0
+portstock: AIC = 2, HQIC = BIC = 0
+porthybrid: AIC = HQIC = BIC = 0
+
+Prefer AIC to minimise errors at the sacrifice of increasing computational cost*/
+
+* General Crisis Dummy 
+* Minimum lag for a VAR in stata has to be 1, hence why 0 lags have 1 lag included
+var portmetal spx, lags(2) exog(Inflation ($\pi$) $r_f$ crisis)
+est store var_model_portmetal
+
+var portagri spx, lags(1) exog(Inflation ($\pi$) $r_f$ crisis)
+est store var_model_portagri
+
+var portstock spx, lags(2) exog(Inflation ($\pi$) $r_f$ crisis)
+est store var_model_portstock
+
+var porthybrid spx, lags(1) exog(Inflation ($\pi$) $r_f$ crisis)
+est store var_model_porthybrid
+
+esttab var_model_portmetal var_model_portagri var_model_portstock var_model_porthybrid using ///
+"var_simple_models.csv", replace csv label b(3) se(3) star(* 0.10 ** 0.05 *** 0.001) ///
+stats(N r2 r2_a, fmt(0 3 3)) mtitle("Precious Metals" "Argiculture" "Traditional Equities" "Hybrid")
+\end{minted}
+\clearpage 
+
+\subsubsection*{Appendix E - Optimal Lags from Information Criterion}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|c|c|c|}
+    \toprule
+    \textbf{Information Criterion}  &  \textbf{AIC} & \textbf{HQIC} & \textbf{BIC}\\
+    \midrule
+    portmetal & 4 & 2 & 2 \\
+    portagri & 4 & 2 & 2 \\
+    portstock & 4 & 2 & 2 \\
+    porthybrid & 4 & 2 & 2 \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+We conclude that we prefer AIC to minimise errors at the sacrifice of increasing computational cost. \\ Hence, we run a VAR(4) model.
+\clearpage 
+
+\subsection{Appendix F - VAR Regression Results}
+
+\begin{table}[H]
+\centering
+\caption*{VAR Model Results by Crisis Period}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabularx}{\textwidth}{l *{4}{>{\centering\arraybackslash}X}}
+\toprule
+ & \textbf{Precious Metals} & \textbf{Agriculture} & \textbf{Traditional Equities} & \textbf{Hybrid} \\
+\midrule
+
+\multicolumn{1}{l}{\textbf{Simple Model (All Crises)}} \\
+L.portfolio & -0.112147** & -0.016750 & 0.011028 & 0.002922 \\
+ & (0.050) & (0.049) & (0.058) & (0.051) \\
+L2.portfolio & -0.077523 & 0.036393 & -0.147228** & 0.012524 \\
+ & (0.050) & (0.049) & (0.058) & (0.051) \\
+L3.portfolio & 0.007070 & -0.039963 & -0.062184 & -0.031038 \\
+ & (0.050) & (0.049) & (0.058) & (0.052) \\
+L4.portfolio & -0.005483 & 0.038865 & -0.042890 & 0.001065 \\
+ & (0.050) & (0.049) & (0.058) & (0.051) \\
+L.SPX & -0.030249 & -0.118240 & -0.140070** & -0.072951 \\
+ & (0.059) & (0.076) & (0.055) & (0.046) \\
+L2.SPX & 0.043484 & -0.055448 & 0.066701 & -0.013842 \\
+ & (0.058) & (0.074) & (0.054) & (0.045) \\
+L3.SPX & -0.031014 & 0.012548 & -0.027513 & -0.048553 \\
+ & (0.059) & (0.075) & (0.056) & (0.045) \\
+L4.SPX & 0.045467 & 0.101732 & -0.008427 & 0.043885 \\
+ & (0.058) & (0.074) & (0.055) & (0.045) \\
+L.interest\_rate & -0.096756 & 1.070644 & -3.092616*** & -0.366782 \\
+ & (1.485) & (1.940) & (1.160) & (1.094) \\
+L2.interest\_rate & -0.565952 & -1.975588 & 5.442285*** & -0.016138 \\
+ & (2.563) & (3.351) & (2.006) & (1.888) \\
+L3.interest\_rate & 1.048060 & -2.125621 & -1.420996 & -0.754801 \\
+ & (2.541) & (3.318) & (1.999) & (1.871) \\
+L4.interest\_rate & -0.416048 & 2.933650 & -0.910357 & 1.083318 \\
+ & (1.468) & (1.914) & (1.155) & (1.082) \\
+crisis & -0.050143*** & -0.052726*** & -0.065165*** & -0.048690*** \\
+ & (0.013) & (0.017) & (0.010) & (0.009) \\
+cpi ($\pi$) & 0.000040 & -0.000006 & -0.000051 & 0.000002 \\
+ & (0.000) & (0.000) & (0.000) & (0.000) \\
+Constant & -0.001489 & 0.007399 & 0.021621** & 0.007934 \\
+ & (0.014) & (0.018) & (0.011) & (0.010) \\
+N & 416 & 416 & 416 & 416 \\
+\midrule
+
+\multicolumn{1}{l}{\textbf{Dot-com Crisis (2000-2002)}} \\
+L.portfolio & -0.104766** & -0.018494 & 0.025527 & 0.009437 \\
+ & (0.051) & (0.049) & (0.061) & (0.053) \\
+L2.portfolio & -0.090482* & 0.039248 & -0.157208*** & 0.003900 \\
+ & (0.051) & (0.049) & (0.061) & (0.053) \\
+L3.portfolio & 0.015140 & -0.030190 & -0.081274 & -0.009152 \\
+ & (0.051) & (0.049) & (0.061) & (0.053) \\
+L4.portfolio & -0.010607 & 0.045610 & -0.059706 & 0.004967 \\
+ & (0.051) & (0.050) & (0.061) & (0.053) \\
+L.SPX & 0.022713 & -0.059952 & -0.076952 & -0.021378 \\
+ & (0.058) & (0.075) & (0.057) & (0.046) \\
+L2.SPX & 0.062196 & -0.040365 & 0.092193 & 0.004536 \\
+ & (0.059) & (0.075) & (0.057) & (0.046) \\
+L3.SPX & 0.011766 & 0.057915 & 0.041365 & -0.011780 \\
+ & (0.059) & (0.075) & (0.057) & (0.046) \\
+L4.SPX & 0.066240 & 0.120350 & 0.024795 & 0.061506 \\
+ & (0.059) & (0.075) & (0.058) & (0.046) \\
+\end{tabularx}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabularx}{\textwidth}{l *{4}{>{\centering\arraybackslash}X}}
+L.interest\_rate & -0.031753 & 1.148964 & -3.025578** & -0.305205 \\
+ & (1.511) & (1.963) & (1.217) & (1.129) \\
+L2.interest\_rate & -0.612964 & -2.058892 & 5.370949** & -0.077415 \\
+ & (2.607) & (3.391) & (2.105) & (1.947) \\
+L3.interest\_rate & 1.125685 & -2.014347 & -1.360048 & -0.667555 \\
+ & (2.584) & (3.357) & (2.097) & (1.930) \\
+L4.interest\_rate & -0.424463 & 2.888600 & -0.940306 & 1.045466 \\
+ & (1.494) & (1.938) & (1.212) & (1.116) \\
+dot\_crisis & -0.006583 & -0.002047 & 0.004913 & -0.001019 \\
+ & (0.007) & (0.009) & (0.006) & (0.005) \\
+cpi ($\pi$) & 0.000019 & -0.000015 & -0.000045 & -0.000005 \\
+ & (0.000) & (0.000) & (0.000) & (0.000) \\
+Constant & -0.000801 & 0.005027 & 0.014645 & 0.005198 \\
+ & (0.015) & (0.019) & (0.012) & (0.011) \\
+N & 416 & 416 & 416 & 416 \\
+\midrule
+
+\multicolumn{1}{l}{\textbf{GFC Crisis (2007-2009)}} \\
+L.portfolio & -0.103698** & -0.018082 & 0.033107 & 0.011907 \\
+ & (0.051) & (0.050) & (0.061) & (0.053) \\
+L2.portfolio & -0.088500* & 0.039480 & -0.150664** & 0.005018 \\
+ & (0.051) & (0.049) & (0.061) & (0.053) \\
+L3.portfolio & 0.017249 & -0.029877 & -0.075598 & -0.008973 \\
+ & (0.051) & (0.049) & (0.060) & (0.053) \\
+L4.portfolio & -0.009373 & 0.046322 & -0.056131 & 0.007268 \\
+ & (0.051) & (0.050) & (0.061) & (0.053) \\
+L.SPX & 0.026279 & -0.061805 & -0.093216 & -0.028513 \\
+ & (0.059) & (0.076) & (0.058) & (0.047) \\
+L2.SPX & 0.064479 & -0.042164 & 0.078416 & -0.001581 \\
+ & (0.059) & (0.076) & (0.057) & (0.047) \\
+L3.SPX & 0.013159 & 0.056711 & 0.030992 & -0.015747 \\
+ & (0.059) & (0.075) & (0.058) & (0.046) \\
+L4.SPX & 0.066569 & 0.119386 & 0.019182 & 0.058499 \\
+ & (0.059) & (0.075) & (0.058) & (0.046) \\
+L.interest\_rate & -0.004033 & 1.106514 & -3.232701*** & -0.425018 \\
+ & (1.523) & (1.976) & (1.224) & (1.136) \\
+L2.interest\_rate & -0.616956 & -2.058646 & 5.412148** & -0.068751 \\
+ & (2.609) & (3.391) & (2.101) & (1.945) \\
+L3.interest\_rate & 1.146167 & -2.014508 & -1.433596 & -0.686187 \\
+ & (2.587) & (3.357) & (2.094) & (1.928) \\
+L4.interest\_rate & -0.514726 & 2.918906 & -0.661167 & 1.173350 \\
+ & (1.510) & (1.955) & (1.222) & (1.126) \\
+gfc\_crisis & 0.003390 & -0.002476 & -0.014548 & -0.007938 \\
+ & (0.013) & (0.016) & (0.010) & (0.009) \\
+cpi ($\pi$) & 0.000034 & -0.000008 & -0.000049 & 0.000002 \\
+ & (0.000) & (0.000) & (0.000) & (0.000) \\
+Constant & -0.004519 & 0.003612 & 0.016388 & 0.004012 \\
+ & (0.014) & (0.018) & (0.011) & (0.010) \\
+N & 416 & 416 & 416 & 416 \\
+\midrule
+
+\end{tabularx}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabularx}{\textwidth}{l *{4}{>{\centering\arraybackslash}X}}
+\multicolumn{1}{l}{\textbf{COVID Crisis (2020-2022)}} \\
+L.portfolio & -0.102597** & -0.021044 & 0.024110 & 0.007613 \\
+ & (0.051) & (0.049) & (0.061) & (0.053) \\
+L2.portfolio & -0.087459* & 0.035979 & -0.158522*** & 0.001978 \\
+ & (0.051) & (0.049) & (0.061) & (0.053) \\
+L3.portfolio & 0.017546 & -0.033112 & -0.081737 & -0.010147 \\
+ & (0.051) & (0.050) & (0.061) & (0.053) \\
+L4.portfolio & -0.008576 & 0.042144 & -0.060277 & 0.003207 \\
+ & (0.051) & (0.050) & (0.061) & (0.053) \\
+L.SPX & 0.023111 & -0.057797 & -0.076519 & -0.020266 \\
+ & (0.058) & (0.075) & (0.057) & (0.046) \\
+L2.SPX & 0.061544 & -0.038033 & 0.093327 & 0.005724 \\
+ & (0.059) & (0.075) & (0.057) & (0.046) \\
+L3.SPX & 0.011136 & 0.060124 & 0.042223 & -0.010799 \\
+ & (0.059) & (0.075) & (0.057) & (0.046) \\
+L4.SPX & 0.065299 & 0.121408 & 0.025447 & 0.062140 \\
+ & (0.059) & (0.075) & (0.058) & (0.046) \\
+L.interest\_rate & -0.037468 & 1.007015 & -3.070453** & -0.359970 \\
+ & (1.515) & (1.966) & (1.219) & (1.131) \\
+L2.interest\_rate & -0.623369 & -1.968650 & 5.402282** & -0.046064 \\
+ & (2.610) & (3.389) & (2.105) & (1.946) \\
+L3.interest\_rate & 1.138037 & -2.030636 & -1.368146 & -0.671182 \\
+ & (2.587) & (3.354) & (2.097) & (1.929) \\
+L4.interest\_rate & -0.464976 & 2.943327 & -0.884364 & 1.066197 \\
+ & (1.496) & (1.936) & (1.212) & (1.116) \\
+covid\_crisis & -0.001524 & 0.011176 & 0.006313 & 0.004524 \\
+ & (0.009) & (0.012) & (0.008) & (0.007) \\
+cpi ($\pi$) & 0.000040 & -0.000040 & -0.000075 & -0.000014 \\
+ & (0.000) & (0.000) & (0.000) & (0.000) \\
+Constant & -0.005425 & 0.008980 & 0.020517* & 0.006686 \\
+ & (0.015) & (0.019) & (0.012) & (0.011) \\
+N & 416 & 416 & 416 & 416 \\
+\midrule
+\multicolumn{5}{l}{Notes: Standard errors in parentheses. Significance levels: * \(p<0.10\), ** \(p<0.05\), *** \(p<0.01\).} \\
+\bottomrule
+\end{tabularx}
+\end{adjustbox}
+\end{table}
+\clearpage
+\subsubsection*{VAR Regression Stability Checks Using Eigenvalues}
+
+\textbf{Whole time-horizon}
+\begin{figure}[h]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/portmetalgeneral.png}
+        \caption*{portmetal}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/portagrigeneral.png}
+        \caption*{portagri}
+    \end{minipage}
+
+    \vspace{0.5cm}
+
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/portstockgeneral.png}
+        \caption*{portstock}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/porthybridgeneral.png}
+        \caption*{porthybrid}
+    \end{minipage}
+    \caption*{Eigenvalue stability checks for whole time-horizon.}
+\end{figure}
+
+\clearpage
+\textbf{Dot-com bubble}
+\begin{figure}[h]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/portmetaldotcom.png}
+        \caption*{portmetal}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/portagridotcom.png}
+        \caption*{portagri}
+    \end{minipage}
+
+    \vspace{0.5cm}
+
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/portstockdotcom.png}
+        \caption*{portstock}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/porthybriddotcom.png}
+        \caption*{porthybrid}
+    \end{minipage}
+    \caption*{Eigenvalue stability checks for the dot-com bubble.}
+\end{figure}
+
+\clearpage
+\textbf{Global Finance Crisis}
+\begin{figure}[h]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/portmetalgfc.png}
+        \caption*{portmetal}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/portagrigfc.png}
+        \caption*{portagri}
+    \end{minipage}
+
+    \vspace{0.5cm}
+
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/portstockgfc.png}
+        \caption*{portstock}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/porthybridgfc.png}
+        \caption*{porthybrid}
+    \end{minipage}
+    \caption*{Eigenvalue stability checks for the Global Financial Crisis.}
+\end{figure}
+
+\clearpage
+\textbf{COVID-19}
+\begin{figure}[h]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/portmetalcovid.png}
+        \caption*{portmetal}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/portagricovid.png}
+        \caption*{portagri}
+    \end{minipage}
+
+    \vspace{0.5cm}
+
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/portstockcovid.png}
+        \caption*{portstock}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/porthybridcovid.png}
+        \caption*{porthybrid}
+    \end{minipage}
+    \caption*{Eigenvalue stability checks for COVID-19.}
+\end{figure}
+
+\end{document}
