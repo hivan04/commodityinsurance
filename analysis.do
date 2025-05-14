@@ -508,13 +508,22 @@ foreach var of local vars {
 local spx portmetal portagri portstock porthybrid 
 foreach var of local vars {
 	dfuller `var', lags(0)
-} 
+	
 * To no surprise, we find that our porfolios are stationary in levels form, so we can proceed 
+	
+* Testing stationarity of endogeneosu variables
+dfuller rfdec
+dfuller cpi
+
+dfuller d.rfdec
+dfuller d.cpi
+
+* We find that in order to include our macro indicators into the model, we should difference them
 
 * Find optimal lag lengths 
 local vars portmetal portagri portstock porthybrid
 foreach var of local vars {
-	varsoc `var' spx rfdec, exog(cpi) 
+	varsoc `var' spx d.rfdec d.cpi, exog(crisis) 
 }
 
 /*The following shows the optimal lags found from each of our criterion
@@ -525,7 +534,7 @@ Prefer AIC to minimise errors at the sacrifice of increasing computational cost
 * General Crisis Dummy 
 local vars portmetal portagri portstock porthybrid
 foreach var of local vars {
-	var `var' spx rfdec, lags(1/4) exog(crisis cpi)
+	var `var' spx d.rfdec d.cpi, lags(1/4) exog(crisis)
 	est store var_model_`var'
 	* Plot an eigenvalue mapping to check for dynamic stationarity 
 	varstable, graph
@@ -538,7 +547,7 @@ esttab var_model_portmetal var_model_portagri var_model_portstock var_model_port
 * Dotcom Bubble: Jan 1995 - October 2002
 local vars portmetal portagri portstock porthybrid
 foreach var of local vars {
-	var `var' spx rfdec, lags(1/4) exog(dot_crisis cpi)
+	var `var' spx d.rfdec d.cpi, lags(1/4) exog(dot_crisis)
 	est store var_dot_model_`var'
 	* Plot an eigenvalue mapping to check for dynamic stationarity 
 	varstable, graph
@@ -551,7 +560,7 @@ esttab var_dot_model_portmetal var_dot_model_portagri var_dot_model_portstock va
 * GFC Period: June 2007 - Jan 2009
 local vars portmetal portagri portstock porthybrid
 foreach var of local vars {
-	var `var' spx rfdec, lags(1/4) exog(gfc_crisis cpi)
+	var `var' spx d.rfdec d.cpi, lags(1/4) exog(gfc_crisis)
 	est store var_gfc_model_`var'
 	* Plot an eigenvalue mapping to check for dynamic stationarity 
 	varstable, graph
@@ -564,7 +573,7 @@ esttab var_gfc_model_portmetal var_gfc_model_portagri var_gfc_model_portstock va
 * COVID Period: Feb 2020 - June 2020 
 local vars portmetal portagri portstock porthybrid
 foreach var of local vars {
-	var `var' spx rfdec, lags(1/4) exog(covid_crisis cpi)
+	var `var' spx d.rfdec d.cpi, lags(1/4) exog(covid_crisis)
 	est store var_covid_model_`var'
 	* Plot an eigenvalue mapping to check for dynamic stationarity 
 	varstable, graph
