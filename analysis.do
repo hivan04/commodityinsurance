@@ -581,7 +581,3 @@ foreach var of local vars {
 }
 
 esttab var_covid_model_portmetal var_covid_model_portagri var_covid_model_portstock var_covid_model_porthybrid using "/Users/ivan/Desktop/alternative/regression_outputs/var_covid_models.csv", replace csv label b(6) se(3) star(* 0.10 ** 0.05 *** 0.01) stats(N r2 r2_a, fmt(0 3 3)) mtitle("Precious Metals" "Argiculture" "Traditional Equities" "Hybrid")
-
-
-
-
